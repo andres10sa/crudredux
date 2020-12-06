@@ -10,6 +10,7 @@ const Productos = () => {
   useEffect(()=>{
      const cargarProductos=()=>dispatch(obtenerProductos());;
      cargarProductos();
+     //eslint-disabled-next-line
   },[])
 
   const {loading,error,productos} = useSelector(state=>state.productos);

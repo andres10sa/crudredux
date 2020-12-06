@@ -1,79 +1,14 @@
 {
   "productos": [
     {
-      "id": 1,
-      "nombre": "Jugo de Zanahoria",
-      "precio": "31111"
-    },
-    {
-      "id": 2,
-      "nombre": "Jugo de Naranja",
-      "precio": "1"
-    },
-    {
-      "nombre": "Jugo de Naranja",
-      "precio": "300",
-      "id": 3
-    },
-    {
-      "nombre": "Rib Eye 800g",
-      "precio": "200",
-      "id": 4
-    },
-    {
-      "nombre": "Jugo de Fresa",
-      "precio": "200",
-      "id": 5
-    },
-    {
-      "name": "rice",
-      "price": "123",
-      "id": 6
-    },
-    {
-      "name": "rice",
-      "price": "123",
-      "id": 7
-    },
-    {
-      "name": "rice",
-      "price": "123",
-      "id": 8
-    },
-    {
-      "name": "rice",
-      "price": "123",
-      "id": 9
-    },
-    {
-      "name": "piña",
-      "price": "3000",
+      "name": "sandia",
+      "price": "3200",
       "id": 10
     },
     {
-      "name": "piña",
-      "price": "3000",
+      "name": "rice",
+      "price": "1200",
       "id": 11
-    },
-    {
-      "name": "piña",
-      "price": "3000",
-      "id": 12
-    },
-    {
-      "name": "asd",
-      "price": "012",
-      "id": 13
-    },
-    {
-      "name": "asd",
-      "price": "012",
-      "id": 14
-    },
-    {
-      "name": "23",
-      "price": "02",
-      "id": 15
     }
   ]
 }
