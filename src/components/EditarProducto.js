@@ -1,6 +1,33 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
+import {useDispatch,useSelector} from 'react-redux';
+import {editarProductoAction} from '../actions/productoActions';
+import {useHistory} from 'react-router-dom';
 
 const EditarProducto = () => {
+   
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const [producto,setProducto]=useState({});
+  const {productoeditar} = useSelector(state=>state.productos);
+ 
+  const {name,price,id}=producto;
+
+  useEffect(()=>{
+      setProducto(productoeditar);
+  },[productoeditar])
+
+ 
+
+ const submitEditar = e =>{
+   e.preventDefault();
+   if(!name || !price){
+     return;
+   }
+   dispatch(editarProductoAction(producto));
+   history.push('/');
+
+ }
+
     return ( 
       <div className="row justify-content-center">
         <div className="col-md-8">
@@ -9,14 +36,18 @@ const EditarProducto = () => {
               <h2 className="text-center mb-4 font-weight-bold">
                 Editar Producto
               </h2>
-              <form>
+              <form
+              onSubmit={submitEditar}
+              >
                 <div className="form-group">
                   <label>Nombre Producto</label>
                   <input 
                   type="text" 
                   className='form-control'
                   placeholder='Nombre Producto'
-                  name='nombre'
+                  name='name'
+                  value={name}
+                  onChange={(e)=>setProducto({...producto,[e.target.name]:e.target.value})}
 
                   />
                 </div>
@@ -27,7 +58,9 @@ const EditarProducto = () => {
                   type="number" 
                   className='form-control'
                   placeholder='Precio Producto'
-                  name='precio'
+                  name='price'
+                  value={price}
+                  onChange={(e)=>setProducto({...producto,[e.target.name]:e.target.value})}
                   />
                 </div>
                 <button className='btn btn-primary font-weight-bold text-uppercase d-block w-100'>GUARDAR CAMBIOS</button>

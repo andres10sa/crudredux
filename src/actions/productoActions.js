@@ -5,12 +5,19 @@ import {
     AGREGAR_PRODUCTO_ERROR,
     COMENZAR_DESCARGA_PRODUCTOS,
     DESCARGAR_PRODUCTOS_EXITO,
-    DESCARGAR_PRODUCTOS_ERROR
+    DESCARGAR_PRODUCTOS_ERROR,
+    OBTENER_PRODUCTO_ELIMINAR,
+    PRODUCTO_ELIMINADO_EXITO,
+    PRODUCTO_ELIMINADO_ERROR,
+    OBTENER_PRODUCTO_EDITAR,
+    COMENZAR_EDICION_PRODUCTO,
+    PRODUCTO_EDITADO_EXITO,
+    PRODUCTO_EDITADO_ERROR
 
 } from '../types';
 import clienteAxios from '../config/axios';
 import Swal from 'sweetalert2';
-import Axios from 'axios';
+
 
 //Crear nuevos productos
 export function crearNuevoProductoAction(producto){
@@ -86,3 +93,69 @@ const descargarProductosError=()=>({
     payload:true
 })
 
+
+// SELECCIONA Y ELIMINA EL PRODUCTO
+export function borrarProductoAction(id){
+   return async(dispatch)=>{
+       dispatch(obtenerProductoEliminar(id));
+       try {
+           //eliminar de la api
+           await clienteAxios.delete(`/productos/${id}`);
+           Swal.fire(
+            'Eliminado','El producto ha sido eliminado.','succes'
+        )
+           //eliminar del state
+           dispatch(eliminarProductoExito());
+       } catch (error) {
+           console.log(error);
+           dispatch(eliminarProductoError());
+       }
+   }
+}
+
+const obtenerProductoEliminar = id=>({
+    type:OBTENER_PRODUCTO_ELIMINAR,
+    payload:id
+});
+const eliminarProductoExito = ()=>({
+    type:PRODUCTO_ELIMINADO_EXITO
+});
+const eliminarProductoError = ()=>({
+    type:PRODUCTO_ELIMINADO_ERROR,
+    payload:true
+});
+
+export function obtenerProductoEditar(producto) {
+    return async(dispatch)=>{
+      dispatch(obtenerProductoEditarAction(producto));
+    }
+}
+const obtenerProductoEditarAction = (producto)=>({
+    type:OBTENER_PRODUCTO_EDITAR,
+    payload:producto
+})
+//editar un rgistro en la api
+export function editarProductoAction(producto){
+    return async(dispatch)=>{
+          dispatch(editarProducto());
+          try {
+        await clienteAxios.put(`productos/${producto.id}`,producto);
+           dispatch(editarProductoExito(producto))
+          
+          } catch (error) {
+              console.log(error)
+              dispatch(editarProductoError());
+          }
+    }
+}
+const editarProducto = ()=>({
+    type:COMENZAR_EDICION_PRODUCTO,
+});
+const editarProductoExito = (producto)=>({
+    type:PRODUCTO_EDITADO_EXITO,
+    payload:producto
+})
+const editarProductoError = ()=>({
+    type:PRODUCTO_EDITADO_ERROR,
+    payload:true
+})
